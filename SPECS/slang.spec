@@ -5,15 +5,17 @@
 %endif
 Summary: The shared library for the S-Lang extension language
 Name: slang
-Version: 2.2.4
-Release: 11%{?dist}
+Version: 2.3.3
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
 Source: ftp://space.mit.edu/pub/davis/slang/v2.2/%{name}-%{version}.tar.bz2
 # fix file permissions
-Patch1: slang-2.2.4-perms.patch
+# Patch merge in 2.3.3
+#Patch1: slang-2.2.4-perms.patch
 # add support for aarch64
-Patch2: slang-2.2.4-aarch64.patch
+# No need for aarch64 on XCP-ng
+#Patch2: slang-2.2.4-aarch64.patch
 URL: http://www.jedsoft.org/slang/
 BuildRequires: libpng-devel pcre-devel zlib-devel
 BuildRequires: gcc
@@ -65,8 +67,8 @@ language.
 
 %prep
 %setup -q
-%patch1 -p1 -b .perms
-%patch2 -p1 -b .aarch64
+#%%patch1 -p1 -b .perms
+#%%patch2 -p1 -b .aarch64
 
 head -n -1800 < changes.txt > changes.txt_ && tail -n 1800 < changes.txt | \
 	iconv -f iso8859-1 -t utf8 >> changes.txt_ && \
@@ -124,6 +126,11 @@ make check
 %{_libdir}/libslang*.a
 
 %changelog
+* Mon Oct 28 2024 Thierry Escande <thierry.escande@vates.tech> - 2.3.3-1
+- Update source tarball from https://www.jedsoft.org/releases/slang/slang-2.3.3.tar.bz2
+- Disable perm and aarch64 patches
+- Add missing BuildRequires: gcc
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.2.4-11
 - Mass rebuild 2014-01-24
 
