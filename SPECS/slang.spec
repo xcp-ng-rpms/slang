@@ -16,6 +16,7 @@ Patch1: slang-2.2.4-perms.patch
 Patch2: slang-2.2.4-aarch64.patch
 URL: http://www.jedsoft.org/slang/
 BuildRequires: libpng-devel pcre-devel zlib-devel
+BuildRequires: gcc
 %{?with_oniguruma:BuildRequires: oniguruma-devel}
 
 %description
