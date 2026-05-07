@@ -7,7 +7,7 @@
 Summary:	Shared library for the S-Lang extension language
 Name:		slang
 Version:	2.3.2
-Release:	11%{?dist}
+Release:	11.1%{?dist}
 License:	GPLv2+
 URL:		https://www.jedsoft.org/slang/
 Source:		https://www.jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2
@@ -55,8 +55,8 @@ based on the S-Lang extension language.
 
 %prep
 %setup -q
-%patch1 -p1 -b .getkey-memmove
-%patch2 -p1 -b .sighuptest
+%patch -P 1 -p1 -b .getkey-memmove
+%patch -P 2 -p1 -b .sighuptest
 
 # fix permissions of installed modules
 sed -i '/^INSTALL_MODULE=/s/_DATA//' configure
@@ -114,6 +114,9 @@ make check
 %{_includedir}/slang
 
 %changelog
+* Wed May 06 2026 Vincent Michel <vincent.michel@vates.tech> - 2.3.2-11.1
+- Fix the %%patch macro in the specfile to be compatible with rpm 4.20 and above
+
 * Tue Aug 10 2021 Mohan Boddu <mboddu@redhat.com> - 2.3.2-11
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
